@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "nom": "pikachu",
+        "type": "électrique",
+        "img": "<img src = 'img/pikachu.png' alt='Pikachu'>",
+        "pdv": 70,
+        "att_n": 30,
+        "att_s": 50,
+        "border": "2px solid #f7d225",
+        "box-shadow": "2px 2px rgba(247, 210, 37, 0.3)"
+    },
+    {
+        "id": 2,
+        "nom": "bulbizarre",
+        "type": "plante",
+        "img": "<img src = 'img/bulbizarre.png' alt='Bulbizarre'>",
+        "pdv": 80,
+        "att_n": 20,
+        "att_s": 40,
+        "border": "2px solid green",
+        "box-shadow": "2px 2px rgba(0, 128, 0, 0.3)"
+    },
+    {
+        "id": 3,
+        "nom": "tiplouf",
+        "type": "eau",
+        "img": "<img src = 'img/tiplouf.png' alt='Tiplouf'>",
+        "pdv": 60,
+        "att_n": 20,
+        "att_s": 40,
+        "border": "2px solid #507AB6",
+        "box-shadow": "2px 2px rgba(80, 122, 182, 0.3)"
+    },
+    {
+        "id": 4,
+        "nom": "salamèche",
+        "type": "feu",
+        "img": "<img src = 'img/salameche.png' alt='Salamèche'>",
+        "pdv": 70,
+        "att_n": 30,
+        "att_s": 50,
+        "border": "2px solid #ff8700",
+        "box-shadow": "2px 2px rgba(255, 135, 0, 0.3)"
+    },
+    {
+        "id": 5,
+        "nom": "carapuce",
+        "type": "eau",
+        "img": "<img src = 'img/carapuce.png' alt='Carapuce'>",
+        "pdv": 70,
+        "att_n": 30,
+        "att_s": 50,
+        "border": "2px solid #a2d7d5",
+        "box-shadow": "2px 2px rgba(162, 215, 213, 0.3)"
+    }
+]

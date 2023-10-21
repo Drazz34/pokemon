@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #333;
+    color: #FFF;
+}
+
+/* Style pour le thème clair */
+body.light-theme {
+    background-color: #FFF;
+    color: #000;
+}
+
+/* Style pour le thème sombre */
+body.dark-theme {
+    background-color: #333;
+    color: #FFF;
+}
+
+.mode {
+    position: absolute;
+    margin: 5px 0 0 25px;
+}
+
+i {
+    font-size: 38px;
+}
+
+form {
+    text-align: center;
+}
+
+form #choix_pokemon .select_pokemon select {
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    background: white;
+    padding: 4px 8px;
+}
+
+.container {
+    display: none;
+}
+
+#dark_mode {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.image {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 35px;
+}
+
+img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.pokemon .image img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.gras {
+    font-weight: bold;
+}
+
+.versus {
+    font-size: 8rem;
+    font-family: 'Sedgwick Ave Display', cursive;
+    color: #FFCC00;
+    text-shadow: 2px 2px 0 #0000FF, -2px -2px 0 #0000FF, 2px -2px 0 #0000FF, -2px 2px 0 #0000FF;
+}
+
+.milieu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recommencer {
+    padding: 10px 30px;
+    border: none;
+    color: #FFF;
+    cursor: pointer;
+    display: none;
+    background-color: #0000FF;
+    border-radius: 15px;
+}
+
+.recommencer:hover {
+    background-color: #0000C8;
+}
+
+.bouton {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+.bouton .btn {
+    width: 67%;
+    padding: 10px 30px;
+    border: none;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.bouton .bouton_att_n {
+    background-color: #008000;
+}
+
+.bouton .bouton_att_n:hover {
+    background-color: #006600;
+}
+
+.bouton .bouton_att_s {
+    background-color: #FF0000;
+}
+
+.bouton .bouton_att_s:hover {
+    background-color: #CC0000;
+}
+
+.pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    padding: 40px;
+    margin: 20px auto;
+    border-radius: 20px;
+}
+
+
+/* .pikachu .texte {
+    margin-left: -32px;
+} */
