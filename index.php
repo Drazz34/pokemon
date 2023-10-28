@@ -36,42 +36,46 @@ function getPokemonByName($name, $pokemons)
         <input type='checkbox' id='dark_mode'>
     </div>
 
-    <form action="" method="GET">
-        <div id='choix_pokemon'>
-            <p class='liste_pokemon'>Choisis les deux Pokémon qui vont combattre : </p>
-            <div class="select_pokemon">
-                <select name="pokemon1" id="pokemon1">
-                    <option value="">Pokémon 1</option>
-                    <?php foreach ($pokemons as $key => $pokemon) : ?>
-                        <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <select name="pokemon2" id="pokemon2">
-                    <option value="">Pokémon 2</option>
-                    <?php foreach ($pokemons as $key => $pokemon) : ?>
-                        <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-        </div>
-        <div class='jouer'>
-            <button id='btn_jouer'>Jouer</button>
-        </div>
-    </form>
+    <?php
+    if (isset($_GET["pokemon1"]) && $_GET["pokemon1"] != "" && isset($_GET["pokemon2"]) && $_GET["pokemon2"] != "") {
+        $selected_pokemon1_data = getPokemonByName($_GET["pokemon1"], $pokemons);
+        $selected_pokemon2_data = getPokemonByName($_GET["pokemon2"], $pokemons);
+        echo "<style>.container { display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        padding-top: 50px; }</style>";
+    }
+    ?>
 
+    <?php if (!isset($selected_pokemon1_data) || !isset($selected_pokemon2_data)) : ?>
+        <form action="" method="GET" id="form">
+            <div id='choix_pokemon'>
+                <p class='liste_pokemon'>Choisis les deux Pokémon qui vont combattre : </p>
+                <div class="select_pokemon">
+                    <select name="pokemon1" id="pokemon1">
+                        <option value="">Pokémon 1</option>
+                        <?php foreach ($pokemons as $key => $pokemon) : ?>
+                            <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <select name="pokemon2" id="pokemon2">
+                        <option value="">Pokémon 2</option>
+                        <?php foreach ($pokemons as $key => $pokemon) : ?>
+                            <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class='jouer'>
+                <button id='btn_jouer'>Jouer</button>
+            </div>
+        </form>
+    <?php endif; ?>
 
 
     <div class='container'>
         <?php
-
-        if (isset($_GET["pokemon1"]) && $_GET["pokemon1"] != "" && isset($_GET["pokemon2"]) && $_GET["pokemon2"] != "") {
-            $selected_pokemon1_data = getPokemonByName($_GET["pokemon1"], $pokemons);
-            $selected_pokemon2_data = getPokemonByName($_GET["pokemon2"], $pokemons);
-            echo "<style>.container { display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                flex-wrap: wrap; }</style>";
-        }
 
         if (isset($selected_pokemon1_data)) : ?>
             <!-- Affichage de $selected_pokemon1_data -->

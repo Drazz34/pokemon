@@ -8,6 +8,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #333;
     color: #FFF;
@@ -34,18 +38,37 @@ i {
     font-size: 38px;
 }
 
+/* Formulaire */
 form {
     text-align: center;
 }
 
+form #choix_pokemon .select_pokemon {
+    margin: 10px;
+}
+
 form #choix_pokemon .select_pokemon select {
-    border: none;
+    border: 1px solid #333;
     outline: none;
     border-radius: 3px;
     background: white;
     padding: 4px 8px;
 }
 
+form .jouer #btn_jouer {
+    padding: 5px 15px;
+    background-color: #00F;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #FFF;
+}
+
+form .jouer #btn_jouer:hover {
+    background-color: #0000C8;
+}
+
+/* Container */
 .container {
     display: none;
 }
@@ -149,8 +172,3 @@ img {
     margin: 20px auto;
     border-radius: 20px;
 }
-
-
-/* .pikachu .texte {
-    margin-left: -32px;
-} */
