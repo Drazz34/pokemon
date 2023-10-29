@@ -14,7 +14,7 @@ const att_s_pokemon1 = document.getElementById("att_s_" + pokemon1Nom);
 const pv_pokemon1 = document.getElementById("pv_" + pokemon1Nom);
 const att_n_pokemon2 = document.getElementById("att_n_" + pokemon2Nom);
 const att_s_pokemon2 = document.getElementById("att_s_" + pokemon2Nom);
-const pv_pokemon2 = document.getElementById("pv_" + pokemon1Nom);
+const pv_pokemon2 = document.getElementById("pv_" + pokemon2Nom);
 const recommencer = document.querySelector(".recommencer");
 const bouton_att_n = document.querySelectorAll(".bouton_att_n");
 const bouton_att_s = document.querySelectorAll(".bouton_att_s");
@@ -63,76 +63,65 @@ fetch("/pokemon/data.json")
 });
 
 function setupEventListeners() {
-    console.log(pokemonData);
-    // att_n_pokemon1.addEventListener("click", () => {
-    //     let pv_pokemon2_val = parseInt(pv_pokemon2.textContent) - ici la valeur de l'attaque;
-    
-    //     if (pv_bulbizarre_val <= 0) {
-    //         pv_bulbizarre.textContent = 0;
-    //         bouton_att_n.forEach(e => {
-    //             e.disabled = true;
-    //         });
-    //         bouton_att_s.forEach(e => {
-    //             e.disabled = true;
-    //         })
-    
-    //         setTimeout(() => {
-    //             alert("Bulbizarre est KO!!!");
-    //         }, 100);
-    
-    //         bouton_att_n.forEach(e => {
-    //             e.style.cursor = "not-allowed";
-    //         })
-    //         bouton_att_s.forEach(e => {
-    //             e.style.cursor = "not-allowed";
-    //         })
-    
-    //         recommencer.style.display = "block";
-    //     } else {
-    //         pv_bulbizarre.textContent = pv_bulbizarre_val;
-    //     }
-    // })
+
+    // Récupérer et faire correspondre les pokémons sélectionnés avec leurs données
+    const selectedPokemon1 = pokemonData.find(pokemon => pokemon.nom === pokemon1Nom);
+    const selectedPokemon2 = pokemonData.find(pokemon => pokemon.nom === pokemon2Nom);
+
+    if (!selectedPokemon1 || !selectedPokemon2) {
+        console.error("Pokémon non trouvé dans les données !");
+        return;
+    }
+
+    const attaqueSpecialeUtilisee = {
+        [selectedPokemon1.nom]: false,
+        [selectedPokemon2.nom]: false
+    };
+
+    function appliquerDegats(attaque, cible, pvCible, boutonsCible) {
+        const pvActuels = parseInt(pvCible.textContent, 10);
+        const nouveauxPv = Math.max(0, pvActuels - attaque);
+        pvCible.textContent = nouveauxPv;
+        verifierSiPokemonEstKO(cible, pvCible, boutonsCible);
+    }
+
+    function verifierSiPokemonEstKO(pokemon, pvPokemon, boutons) {
+        if (parseInt(pvPokemon.textContent, 10) <= 0) {
+            desactiverBoutons(boutons);
+            setTimeout(() => alert(`${pokemon.nom} est KO !!!`), 100);
+            recommencer.style.display = "block";
+        }
+    }
+
+    function desactiverBoutons(boutons) {
+        boutons.forEach(bouton => {
+            bouton.disabled = true;
+            bouton.style.cursor = "not-allowed";
+        });
+    }
+
+    function setupAttaques(pokemonAttaquant, pokemonCible, pvPokemonCible, boutonsCible) {
+        const attNBtn = document.getElementById(`att_n_${pokemonAttaquant.nom}`);
+        const attSBtn = document.getElementById(`att_s_${pokemonAttaquant.nom}`);
+
+        attNBtn.addEventListener("click", () => appliquerDegats(pokemonAttaquant.att_n, pokemonCible, pvPokemonCible, boutonsCible));
+        attSBtn.addEventListener("click", () => {
+            if (attaqueSpecialeUtilisee[pokemonAttaquant.nom]) {
+                alert(`${pokemonAttaquant.nom} a déjà utilisé son attaque spéciale !`);
+            } else {
+                appliquerDegats(pokemonAttaquant.att_s, pokemonCible, pvPokemonCible, boutonsCible);
+                attaqueSpecialeUtilisee[pokemonAttaquant.nom] = true;
+                attSBtn.style.cursor = "not-allowed";
+            }
+        });
+    }
+
+    setupAttaques(selectedPokemon1, selectedPokemon2, pv_pokemon2, [...bouton_att_n, ...bouton_att_s]);
+    setupAttaques(selectedPokemon2, selectedPokemon1, pv_pokemon1, [...bouton_att_n, ...bouton_att_s]);
 }
 
 
 
-// att_s_pikachu.addEventListener("click", () => {
-//     let pv_bulbizarre_initial = parseInt(pv_bulbizarre.textContent);
-
-//     let pv_bulbizarre_val = pv_bulbizarre_initial - attaqueSpecialePikachu;
-
-//     if (attaque_speciale_pikachu) {
-//         alert("Pikachu a déjà utilisé son attaque spéciale !");
-//         pv_bulbizarre_val = pv_bulbizarre_initial;
-//     } else {
-//         attaque_speciale_pikachu = true;
-//     }
-
-//     if (pv_bulbizarre_val <= 0) {
-//         pv_bulbizarre.textContent = 0;
-//         bouton_att_n.forEach(e => {
-//             e.disabled = true;
-//         });
-//         bouton_att_s.forEach(e => {
-//             e.disabled = true;
-//         })
-
-//         setTimeout(() => {
-//             alert("Bulbizarre est KO!!!");
-//         }, 100);
-
-//         bouton_att_n.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-//         bouton_att_s.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-
-//         recommencer.style.display = "block";
-//     } else {
-//         pv_bulbizarre.textContent = pv_bulbizarre_val;
-//     }
-// })
 
 // att_n_bulbizarre.addEventListener("click", () => {
 //     let pv_pikachu_val = parseInt(pv_pikachu.textContent) - attaqueNormaleBulbizarre;
