@@ -29,7 +29,7 @@ function getPokemonByName($name, $pokemons)
     <title>Pokemon !</title>
 </head>
 
-<body>
+<body class="dark-theme">
 
     <div class='mode'>
         <label for='dark_mode'><i class='bi bi-sun'></i></label>
@@ -49,28 +49,40 @@ function getPokemonByName($name, $pokemons)
     ?>
 
     <?php if (!isset($selected_pokemon1_data) || !isset($selected_pokemon2_data)) : ?>
-        <form action="" method="GET" id="form">
-            <div id='choix_pokemon'>
-                <p class='liste_pokemon'>Choisis les deux Pokémon qui vont combattre : </p>
-                <div class="select_pokemon">
-                    <select name="pokemon1" id="pokemon1">
-                        <option value="">Pokémon 1</option>
-                        <?php foreach ($pokemons as $key => $pokemon) : ?>
-                            <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <select name="pokemon2" id="pokemon2">
-                        <option value="">Pokémon 2</option>
-                        <?php foreach ($pokemons as $key => $pokemon) : ?>
-                            <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
-                        <?php endforeach; ?>
-                    </select>
+        <div class="top">
+            <form action="" method="GET" id="form">
+                <div id='choix_pokemon'>
+                    <p class='liste_pokemon'>Choisis les deux pokémons qui vont combattre : </p>
+                    <div class="select_pokemon">
+                        <select name="pokemon1" id="pokemon1">
+                            <option value="">Pokémon 1</option>
+                            <?php foreach ($pokemons as $key => $pokemon) : ?>
+                                <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <select name="pokemon2" id="pokemon2">
+                            <option value="">Pokémon 2</option>
+                            <?php foreach ($pokemons as $key => $pokemon) : ?>
+                                <option value="<?= $pokemon["nom"] ?>"><?= $pokemon["nom"] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class='jouer'>
+                    <button id='btn_jouer'>
+                        <span class="circle" aria-hidden="true">
+                            <span class="icon arrow"></span>
+                        </span>
+                        <span class="button-text">En avant !</span>
+                    </button>
+                </div>
+            </form>
+            <div class="background">
+                <div class="img_pokemon">
+                    <img src="img/pokemon.jpg" alt="Sacha et plusieurs de ses pokémons" class="background_img">
                 </div>
             </div>
-            <div class='jouer'>
-                <button id='btn_jouer'>Jouer</button>
-            </div>
-        </form>
+        </div>
     <?php endif; ?>
 
 

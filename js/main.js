@@ -19,19 +19,34 @@ const recommencer = document.querySelector(".recommencer");
 const bouton_att_n = document.querySelectorAll(".bouton_att_n");
 const bouton_att_s = document.querySelectorAll(".bouton_att_s");
 
-// let attaque_speciale_pikachu = false;
-// let attaque_speciale_tiplouf = false;
-// let attaque_speciale_bulbizarre = false;
+// Lorsque la page est chargée, vérifiez l'état du thème dans le localStorage
+document.addEventListener("DOMContentLoaded", function() {
+    const currentTheme = localStorage.getItem("theme");
+    if (currentTheme == "light") {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme');
+        label.innerHTML = "<i class='bi bi-moon-stars-fill'></i>";
+        dark_mode.checked = true; // Cochez la case pour le mode clair
+    } else {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme');
+        label.innerHTML = "<i class='bi bi-sun'></i>";
+        dark_mode.checked = false; // Décochez la case pour le mode sombre
+    }
+});
 
+// Changer le mode d'affichage entre dark ou light
 dark_mode.addEventListener("change", () => {
     if (dark_mode.checked) {
         document.body.classList.add('light-theme');
         document.body.classList.remove('dark-theme');
         label.innerHTML = "<i class='bi bi-moon-stars-fill'></i>";
+        localStorage.setItem("theme", "light");
     } else {
         document.body.classList.add('dark-theme');
         document.body.classList.remove('light-theme');
         label.innerHTML = "<i class='bi bi-sun'></i>";
+        localStorage.setItem("theme", "dark");
     }
 });
 
@@ -45,8 +60,8 @@ function getParameterByName(name, url = window.location.href) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+// Récupérer les données de data.json
 let pokemonData;
-
 fetch("/pokemon/data.json")
     .then(response => {
         if (!response.ok) {
@@ -63,13 +78,12 @@ fetch("/pokemon/data.json")
 });
 
 function setupEventListeners() {
-
+    
     // Récupérer et faire correspondre les pokémons sélectionnés avec leurs données
     const selectedPokemon1 = pokemonData.find(pokemon => pokemon.nom === pokemon1Nom);
     const selectedPokemon2 = pokemonData.find(pokemon => pokemon.nom === pokemon2Nom);
 
     if (!selectedPokemon1 || !selectedPokemon2) {
-        console.error("Pokémon non trouvé dans les données !");
         return;
     }
 
@@ -78,6 +92,7 @@ function setupEventListeners() {
         [selectedPokemon2.nom]: false
     };
 
+    // Appliquer et afficher les dégats reçus
     function appliquerDegats(attaque, cible, pvCible, boutonsCible) {
         const pvActuels = parseInt(pvCible.textContent, 10);
         const nouveauxPv = Math.max(0, pvActuels - attaque);
@@ -85,6 +100,7 @@ function setupEventListeners() {
         verifierSiPokemonEstKO(cible, pvCible, boutonsCible);
     }
 
+    // Si les points de vie du pokémon tombe à 0 
     function verifierSiPokemonEstKO(pokemon, pvPokemon, boutons) {
         if (parseInt(pvPokemon.textContent, 10) <= 0) {
             desactiverBoutons(boutons);
@@ -93,6 +109,7 @@ function setupEventListeners() {
         }
     }
 
+    // Désactiver les boutons d'attaque
     function desactiverBoutons(boutons) {
         boutons.forEach(bouton => {
             bouton.disabled = true;
@@ -100,6 +117,7 @@ function setupEventListeners() {
         });
     }
 
+    // Appliquer les attaques
     function setupAttaques(pokemonAttaquant, pokemonCible, pvPokemonCible, boutonsCible) {
         const attNBtn = document.getElementById(`att_n_${pokemonAttaquant.nom}`);
         const attSBtn = document.getElementById(`att_s_${pokemonAttaquant.nom}`);
@@ -120,117 +138,7 @@ function setupEventListeners() {
     setupAttaques(selectedPokemon2, selectedPokemon1, pv_pokemon1, [...bouton_att_n, ...bouton_att_s]);
 }
 
-
-
-
-// att_n_bulbizarre.addEventListener("click", () => {
-//     let pv_pikachu_val = parseInt(pv_pikachu.textContent) - attaqueNormaleBulbizarre;
-
-//     if (pv_pikachu_val <= 0) {
-//         pv_pikachu.textContent = 0;
-//         bouton_att_n.forEach(e => {
-//             e.disabled = true;
-//         });
-//         bouton_att_s.forEach(e => {
-//             e.disabled = true;
-//         })
-//         setTimeout(() => {
-//             alert("Pikachu est KO!!!");
-//         }, 100);
-//         bouton_att_n.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-//         bouton_att_s.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-//         recommencer.style.display = "block";
-//     } else {
-//         pv_pikachu.textContent = pv_pikachu_val;
-//     }
-// })
-
-// att_s_bulbizarre.addEventListener("click", () => {
-//     let pv_pikachu_initial = parseInt(pv_pikachu.textContent);
-
-//     let pv_pikachu_val = pv_pikachu_initial - attaqueSpecialeBulbizarre;
-
-//     if (attaque_speciale_bulbizarre) {
-//         alert("Bulbizarre a déjà utilisé son attaque spéciale !");
-//         pv_pikachu_val = pv_pikachu_initial;
-//     } else {
-//         attaque_speciale_bulbizarre = true;
-//     }
-
-//     if (pv_pikachu_val <= 0) {
-//         pv_pikachu.textContent = 0;
-//         bouton_att_n.forEach(e => {
-//             e.disabled = true;
-//         });
-//         bouton_att_s.forEach(e => {
-//             e.disabled = true;
-//         })
-//         setTimeout(() => {
-//             alert("Pikachu est KO!!!");
-//         }, 100);
-//         bouton_att_n.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-//         bouton_att_s.forEach(e => {
-//             e.style.cursor = "not-allowed";
-//         })
-//         recommencer.style.display = "block";
-//     } else {
-//         pv_pikachu.textContent = pv_pikachu_val;
-//     }
-// })
-
-// recommencer.addEventListener("click", () => {
-//     // Réinitialiser les points de vie de Tiplouf et Pikachu
-//     pv_bulbizarre.textContent = "60";
-//     pv_pikachu.textContent = "70";
-
-//     // Réactiver les boutons d'attaque
-//     bouton_att_n.forEach(e => {
-//         e.disabled = false;
-//         e.style.cursor = "pointer";
-//     })
-
-//     bouton_att_s.forEach(e => {
-//         e.disabled = false;
-//         e.style.cursor = "pointer";
-//     })
-
-//     attaque_speciale_pikachu = false;
-//     attaque_speciale_bulbizarre = false;
-    
-//     // Cacher le bouton de recommencement
-//     recommencer.style.display = "none";
-// })
-
-// function lancerCombat() {
-//     // Obtenez le nom du premier Pokémon choisi par l'utilisateur
-//     let nom_pokemon_1 = document.getElementById("menu_deroulant_pokemon_1").value;
-//     // Obtenez le nom du second Pokémon choisi par l'utilisateur
-//     let nom_pokemon_2 = document.getElementById("menu_deroulant_pokemon_2").value;
-
-//     // Obtenez les informations du premier Pokémon
-//     let pokemon_1 = pokemons[nom_pokemon_1];
-//     // Obtenez les informations du second Pokémon
-//     let pokemon_2 = pokemons[nom_pokemon_2];
-
-//     // Enregistrez les éléments HTML représentant les PV des deux Pokémon
-//     let pv_pokemon_1 = document.getElementById("pv_" + nom_pokemon_1);
-//     let pv_pokemon_2 = document.getElementById("pv_" + nom_pokemon_2);
-
-//     // Configurez le gestionnaire d'événements pour l'attaque du premier Pokémon
-//     document.getElementById("att_n_" + nom_pokemon_1).addEventListener("click", () => {
-//         let pv_cible_val = parseInt(pv_pokemon_2.textContent) - pokemon_1['attaque_normale'];
-//         // le reste du code suit...
-//     });
-
-//     // Configurez le gestionnaire d'événements pour l'attaque du second Pokémon
-//     document.getElementById("att_n_" + nom_pokemon_2).addEventListener("click", () => {
-//         let pv_cible_val = parseInt(pv_pokemon_1.textContent) - pokemon_2['attaque_normale'];
-//         // le reste du code suit...
-//     });
-// }
+// Revenir à la page de sélection des pokémons
+recommencer.addEventListener("click", () => {
+    window.location.href = "/pokemon/";
+})

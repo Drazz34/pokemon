@@ -8,15 +8,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
-    height: 100%;
-}
-
-body {
-    background-color: #333;
-    color: #FFF;
-}
-
 /* Style pour le thème clair */
 body.light-theme {
     background-color: #FFF;
@@ -27,6 +18,11 @@ body.light-theme {
 body.dark-theme {
     background-color: #333;
     color: #FFF;
+}
+
+body.dark-theme #btn_jouer .button-text {
+    color: #FFF;
+    /* Couleur pour le thème sombre */
 }
 
 .mode {
@@ -41,31 +37,154 @@ i {
 /* Formulaire */
 form {
     text-align: center;
+    margin-top: 10px;
+}
+
+form #choix_pokemon {
+    margin-bottom: 20px;
 }
 
 form #choix_pokemon .select_pokemon {
-    margin: 10px;
+    margin-top: 10px;
 }
 
 form #choix_pokemon .select_pokemon select {
-    border: 1px solid #333;
     outline: none;
-    border-radius: 3px;
-    background: white;
+    border-radius: 8px;
     padding: 4px 8px;
+    border: 2px solid #FFCB05;
+    background-color: #3D7DCA;
+    color: white;
+    appearance: none; /* Pour supprimer le style par défaut du navigateur */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: linear-gradient(to bottom, #3D7DCA, #2B5B8D);
 }
 
-form .jouer #btn_jouer {
-    padding: 5px 15px;
-    background-color: #00F;
-    border: none;
-    border-radius: 5px;
+/* Pour les navigateurs qui ne supportent pas 'appearance' */
+select::-ms-expand {
+    display: none;
+}
+
+form #choix_pokemon .select_pokemon select option:hover,
+form #choix_pokemon .select_pokemon select option:checked,
+form #choix_pokemon .select_pokemon select option:focus {
+    background-color: #2B5B8D;  /* Un bleu plus foncé que le bleu Pokémon */
+    color: white;
+}
+
+/* Pour la sélection du texte */
+form #choix_pokemon .select_pokemon select option::selection {
+    background-color: #2B5B8D;  /* Un bleu plus foncé que le bleu Pokémon */
+    color: white;
+}
+
+
+form button#btn_jouer {
+    position: relative;
+    display: inline-block;
     cursor: pointer;
-    color: #FFF;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
 }
 
-form .jouer #btn_jouer:hover {
-    background-color: #0000C8;
+#btn_jouer {
+    width: 12rem;
+    height: auto;
+}
+
+#btn_jouer .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #365ba7;
+    border-radius: 1.625rem;
+}
+
+#btn_jouer .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+#btn_jouer .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+#btn_jouer .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+}
+
+#btn_jouer .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button#btn_jouer:hover .circle {
+    width: 100%;
+}
+
+button#btn_jouer:hover .circle .icon.arrow {
+    background: #fff;
+    transform: translate(1rem, 0);
+}
+
+button#btn_jouer:hover .button-text {
+    color: #fccc00;
+}
+
+#pokemon1 {
+    margin-right: 75px;
+}
+
+.background {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.background .img_pokemon {
+    height: 70vh;
+}
+
+.background img.background_img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 /* Container */
@@ -171,4 +290,34 @@ img {
     padding: 40px;
     margin: 20px auto;
     border-radius: 20px;
+}
+
+@media screen and (max-width: 760px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .background .img_pokemon {
+        height: 50vh;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .background .img_pokemon {
+        height: 40vh;
+    }
+    .mode {
+        margin: 25px 0 0 25px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .background .img_pokemon {
+        height: 30vh;
+    }
+    .mode {
+        margin: 105px 0 0 25px;
+    }
 }
